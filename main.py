@@ -24,6 +24,10 @@ def main():
     game_field = AsteroidField() 
     dt = 0
 
+    print("Starting Asteroids!")
+    print(f"Screen width: {SCREEN_WIDTH}")
+    print(f"Screen height: {SCREEN_HEIGHT}")
+
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -34,6 +38,11 @@ def main():
         for obj in asteroid_group:
             if player_one.collisions(obj):
                 sys.exit("Game over!")
+            
+            for shot in shot_group:
+                if shot.collisions(obj):
+                    shot.kill()
+                    obj.kill()
 
 
         screen.fill("black")
@@ -44,11 +53,6 @@ def main():
         
         dt = clock.tick(60) / 1000
 
-        
-
-    print("Starting Asteroids!")
-    print(f"Screen width: {SCREEN_WIDTH}")
-    print(f"Screen height: {SCREEN_HEIGHT}")
 
 if __name__ == "__main__":
     main()
